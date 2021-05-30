@@ -11,34 +11,48 @@ namespace LastNinja
             this.player = player;
         }
 
+        public void KeyIsDown(object sender, KeyEventArgs args)
+        {
+            const int speed = 10;
+
+            if (args.KeyCode == Keys.Up)
+            {
+                player.Up = -speed;
+                player.Direction = Direction.Up;
+            }
+
+            if (args.KeyCode == Keys.Down)
+            {
+                player.Down = speed;
+                player.Direction = Direction.Down;
+            }
+
+            if (args.KeyCode == Keys.Left)
+            {
+                player.Left = -speed;
+                player.Direction = Direction.Left;
+            }
+
+            if (args.KeyCode == Keys.Right)
+            {
+                player.Right = speed;
+                player.Direction = Direction.Right;
+            }
+        }
+
         public void KeyIsUp(object sender, KeyEventArgs args)
         {
             if (args.KeyCode == Keys.Up)
-                player.MoveUp = false;
+                player.Up = 0;
 
             if (args.KeyCode == Keys.Down)
-                player.MoveDown = false;
+                player.Down = 0;
 
             if (args.KeyCode == Keys.Left)
-                player.MoveLeft = false;
+                player.Left = 0;
 
             if (args.KeyCode == Keys.Right)
-                player.MoveRight = false;
-        }
-
-        public void KeyIsDown(object sender, KeyEventArgs args)
-        {
-            if (args.KeyCode == Keys.Up)
-                player.MoveUp = true;
-
-            if (args.KeyCode == Keys.Down)
-                player.MoveDown = true;
-
-            if (args.KeyCode == Keys.Left)
-                player.MoveLeft = true;
-
-            if (args.KeyCode == Keys.Right)
-                player.MoveRight = true;
+                player.Right = 0;
         }
     }
 }

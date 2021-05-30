@@ -20,7 +20,7 @@ namespace LastNinja
                && gameObject.Y >= gameObject.Size.Dy
                && gameObject.Y < Height - gameObject.Size.Dy;
 
-        public bool IsStaticObjectAtThisPoint(IGameObject gameObject)
+        public bool IsSmthAtThisPoint(IGameObject gameObject)
         { 
             return false;
         }
