@@ -37,7 +37,7 @@ namespace LastNinja
         private void DrawDynamicObjects(object sender, PaintEventArgs args)
         {
             var pen = new Pen(Color.Black, 20);
-            args.Graphics.DrawRectangle(pen, 30, 40, MapWidth, MapHeight);
+            args.Graphics.DrawRectangle(pen, 40, 60, MapWidth, MapHeight);
 
             foreach (var gameObject in game.StaticObjects)
             {
