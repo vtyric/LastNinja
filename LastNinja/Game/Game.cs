@@ -47,11 +47,11 @@ namespace LastNinja
                     if (dynamicObject.Direction == Direction.Right)
                         dynamicObject.X -= dynamicObject.Speed;
                     if (dynamicObject.Direction == Direction.Left)
-                        dynamicObject.Y += dynamicObject.Speed;
-                    if (dynamicObject.Direction == Direction.Up)
                         dynamicObject.X += dynamicObject.Speed;
+                    if (dynamicObject.Direction == Direction.Up)
+                        dynamicObject.Y += dynamicObject.Speed;
                     if (dynamicObject.Direction == Direction.Down)
-                        dynamicObject.X -= dynamicObject.Speed;
+                        dynamicObject.Y -= dynamicObject.Speed;
                 }
             }
         }

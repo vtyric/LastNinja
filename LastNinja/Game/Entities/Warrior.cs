@@ -46,7 +46,7 @@
                 Direction = Direction.Down;
             }
 
-            if (map.InBounds(new Warrior(player,map) {X = x, Y = y}))
+            if (map.InBounds(new Warrior(player, map) {X = x, Y = y}))
                 (X, Y) = (x, y);
         }
 
