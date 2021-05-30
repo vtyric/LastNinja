@@ -1,4 +1,6 @@
-﻿namespace LastNinja
+﻿using System;
+
+namespace LastNinja
 {
     public class Map
     {
@@ -17,5 +19,10 @@
                && gameObject.X < Width - gameObject.Size.Dx
                && gameObject.Y >= gameObject.Size.Dy
                && gameObject.Y < Height - gameObject.Size.Dy;
+
+        public bool IsStaticObjectAtThisPoint(IGameObject gameObject)
+        { 
+            return false;
+        }
     }
 }

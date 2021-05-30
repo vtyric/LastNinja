@@ -60,7 +60,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="MapTests.cs" />
+    <Compile Include="tests\PlayerTests.cs" />
+    <Compile Include="tests\MapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
