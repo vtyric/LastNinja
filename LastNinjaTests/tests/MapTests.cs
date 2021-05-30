@@ -21,11 +21,5 @@ namespace LastNinja.Tests
 
             map.InBounds(player).Should().Be(expected);
         }
-
-        [TestCase()]
-        public void IsStaticObjectAtThisPointTest()
-        {
-            Assert.Fail();
-        }
     }
 }

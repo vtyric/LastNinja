@@ -4,6 +4,8 @@ using System.Windows.Forms;
 
 namespace LastNinja
 {
+
+
     public class GameForm:Form
     {
         private readonly Game game;

@@ -19,10 +19,5 @@ namespace LastNinja
                && gameObject.X < Width - gameObject.Size.Dx
                && gameObject.Y >= gameObject.Size.Dy
                && gameObject.Y < Height - gameObject.Size.Dy;
-
-        public bool IsSmthAtThisPoint(IGameObject gameObject)
-        { 
-            return false;
-        }
     }
 }

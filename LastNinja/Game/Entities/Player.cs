@@ -29,7 +29,7 @@ namespace LastNinja
 
             var newPlayer = new Player(map) {Direction = Direction, Size = (Size.Dx, Size.Dy), X = x, Y = y};
 
-            if (map.InBounds(newPlayer) && !map.IsSmthAtThisPoint(newPlayer))
+            if (map.InBounds(newPlayer))
                 (X, Y) = (x, y);
         }
     }
