@@ -8,6 +8,7 @@ namespace LastNinja
         public GameForm()
         {
             MakeForm();
+
         }
 
         private void MakeForm()

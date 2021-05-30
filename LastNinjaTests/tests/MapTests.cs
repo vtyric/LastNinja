@@ -22,7 +22,7 @@ namespace LastNinja.Tests
             map.InBounds(player).Should().Be(expected);
         }
 
-        [Test()]
+        [TestCase()]
         public void IsStaticObjectAtThisPointTest()
         {
             Assert.Fail();

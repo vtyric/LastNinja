@@ -12,8 +12,15 @@ namespace LastNinja.Tests
     [TestFixture]
     public class PlayerTests
     {
-        [TestCase(30, 30, 0, 0, Direction.Up, 0, 0)]
-        public void MoveTest(int x, int y, int mapWidth, int mapHeight, int sizeX, int sizeY,
+        private const int speed = 10;
+
+        [TestCase(30, 30, 100, 100, 20, 20, Direction.Up, 30, 30 - speed)]
+        [TestCase(30, 30, 100, 100, 20, 20, Direction.Down, 30, 30 + speed)]
+        [TestCase(30, 30, 100, 100, 20, 20, Direction.Left, 30 - speed, 30)]
+        [TestCase(30, 30, 100, 100, 20, 20, Direction.Right, 30 + speed, 30)]
+        [TestCase(20, 20, 100, 100, 20, 20, Direction.Up, 20, 20)]
+        [TestCase(20, 90, 100, 100, 20, 20, Direction.Down, 20, 90)]
+        public void MoveTestWithoutStaticObjects(int x, int y, int mapWidth, int mapHeight, int sizeX, int sizeY,
             Direction direction, int expectedX, int expectedY)
         {
             var map = new Map(mapWidth, mapHeight);

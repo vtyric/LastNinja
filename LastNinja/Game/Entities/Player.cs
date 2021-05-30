@@ -2,12 +2,12 @@
 
 namespace LastNinja
 {
-    public class Player : IGameObject
+    public class Player : IDynamicObject
     {
         public int X { get; set; }
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; set; }
-        public Direction Direction { get; set; }
+        public Direction Direction { get; set; } = Direction.Afk;
 
         private readonly Map map;
 
