@@ -18,6 +18,7 @@ namespace LastNinja
         public Player(Map map)
         {
             this.map = map;
+            Size = (30, 30);
         }
 
         public void Move()

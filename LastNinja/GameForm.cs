@@ -25,10 +25,10 @@ namespace LastNinja
                 Invalidate();
             };
 
-            Paint += DrawField;
+            Paint += DrawDinamicObjects;
         }
 
-        private void DrawField(object sender, PaintEventArgs args)
+        private void DrawDinamicObjects(object sender, PaintEventArgs args)
         {
             foreach (var gameObject in game.DynamicObjects)
             {

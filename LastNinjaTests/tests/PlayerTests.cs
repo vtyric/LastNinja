@@ -1,35 +1,36 @@
-﻿using NUnit.Framework;
-using LastNinja;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
+using NUnit.Framework;
 
 namespace LastNinja.Tests
 {
     [TestFixture]
     public class PlayerTests
     {
-        private const int speed = 10;
-
-        [TestCase(30, 30, 100, 100, 20, 20, Direction.Up, 30, 30 - speed)]
-        [TestCase(30, 30, 100, 100, 20, 20, Direction.Down, 30, 30 + speed)]
-        [TestCase(30, 30, 100, 100, 20, 20, Direction.Left, 30 - speed, 30)]
-        [TestCase(30, 30, 100, 100, 20, 20, Direction.Right, 30 + speed, 30)]
-        [TestCase(20, 20, 100, 100, 20, 20, Direction.Up, 20, 20)]
-        [TestCase(20, 90, 100, 100, 20, 20, Direction.Down, 20, 90)]
-        public void MoveTestWithoutStaticObjects(int x, int y, int mapWidth, int mapHeight, int sizeX, int sizeY,
-            Direction direction, int expectedX, int expectedY)
+        [TestCase(100, 100, 2, 2, 0, 0, 0, 10, 2, 12)]
+        [TestCase(100, 100, 2, 2, 10, 0, 0, 0, 12, 2)]
+        [TestCase(100, 100, 2, 2, 0, 0, 0, 0, 2, 2)]
+        [TestCase(100, 100, 2, 2, 10, 0, 0, 10, 12, 12)]
+        [TestCase(100, 100, 2, 2, 10, -10, 0, 0, 2, 2)]
+        [TestCase(100, 100, 2, 2, 20, -10, 0, 0, 12, 2)]
+        [TestCase(100, 100, 2, 2, 0, -10, 0, 0, 2, 2)]
+        [TestCase(100, 100, 2, 2, 0, 0, -10, 0, 2, 2)]
+        [TestCase(1, 1, 1, 1, 0, 0, -10, 0, 1, 1)]
+        [TestCase(100, 100, 90, 90, 20, 0, -10, 0, 90, 90)]
+        [TestCase(100, 100, 90, 90, 0, -20, 0, 20, 90, 90)]
+        public void MoveTestWithoutAnyObjects(int mapWidth, int mapHeight, int startX, int startY, int moveRight,
+            int moveLeft,
+            int moveUp, int moveDown, int shouldX, int shouldY)
         {
             var map = new Map(mapWidth, mapHeight);
-            var player = new Player(map) {Size = (sizeX, sizeY), X = x, Y = y, Direction = direction};
+            var player = new Player(map)
+            {
+                Size = (0, 0), X = startX, Y = startY, Down = moveDown, Left = moveLeft, Right = moveRight, Up = moveUp
+            };
 
             player.Move();
 
-            player.X.Should().Be(expectedX);
-            player.Y.Should().Be(expectedY);
+            player.X.Should().Be(shouldX);
+            player.Y.Should().Be(shouldY);
         }
     }
 }
