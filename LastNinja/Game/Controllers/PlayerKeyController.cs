@@ -14,31 +14,31 @@ namespace LastNinja
         public void KeyIsUp(object sender, KeyEventArgs args)
         {
             if (args.KeyCode == Keys.Up)
-                player.Direction = Direction.Afk;
+                player.MoveUp = false;
 
             if (args.KeyCode == Keys.Down)
-                player.Direction = Direction.Afk;
+                player.MoveDown = false;
 
             if (args.KeyCode == Keys.Left)
-                player.Direction = Direction.Afk;
+                player.MoveLeft = false;
 
             if (args.KeyCode == Keys.Right)
-                player.Direction = Direction.Afk;
+                player.MoveRight = false;
         }
 
         public void KeyIsDown(object sender, KeyEventArgs args)
         {
             if (args.KeyCode == Keys.Up)
-                player.Direction = Direction.Up;
+                player.MoveUp = true;
 
             if (args.KeyCode == Keys.Down)
-                player.Direction = Direction.Down;
+                player.MoveDown = true;
 
             if (args.KeyCode == Keys.Left)
-                player.Direction = Direction.Left;
+                player.MoveLeft = true;
 
             if (args.KeyCode == Keys.Right)
-                player.Direction = Direction.Right;
+                player.MoveRight = true;
         }
     }
 }

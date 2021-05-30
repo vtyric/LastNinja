@@ -5,7 +5,6 @@
         Up,
         Down,
         Left,
-        Right,
-        Afk
+        Right
     }
 }
