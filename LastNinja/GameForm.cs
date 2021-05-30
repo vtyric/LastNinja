@@ -33,16 +33,19 @@ namespace LastNinja
 
         private void DrawDynamicObjects(object sender, PaintEventArgs args)
         {
-            foreach (var gameObject in game.GameObjects)
+            foreach (var gameObject in game.StaticObjects)
+            {
+                if (gameObject is Stone)
+                    args.Graphics.DrawImage(Resource1.stone1, gameObject.X, gameObject.Y);
+            }
+
+            foreach (var gameObject in game.DynamicObjects)
             {
                 if (gameObject is Player)
                     args.Graphics.DrawImage(Resource1.player, gameObject.X, gameObject.Y);
 
                 if (gameObject is Warrior)
                     args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y);
-
-                if (gameObject is Stone)
-                    args.Graphics.DrawImage(Resource1.stone1, gameObject.X, gameObject.Y);
             }
         }
 
