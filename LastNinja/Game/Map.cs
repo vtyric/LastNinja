@@ -15,9 +15,9 @@ namespace LastNinja
         public int Height => Field.GetLength(1);
 
         public bool InBounds(IGameObject gameObject) 
-            => gameObject.X >= gameObject.Size.Dx
+            => gameObject.X > gameObject.Size.Dx
                && gameObject.X < Width - gameObject.Size.Dx
-               && gameObject.Y >= gameObject.Size.Dy
+               && gameObject.Y > gameObject.Size.Dy
                && gameObject.Y < Height - gameObject.Size.Dy;
     }
 }

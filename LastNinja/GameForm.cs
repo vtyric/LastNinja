@@ -10,10 +10,13 @@ namespace LastNinja
     {
         private readonly Game game;
         private readonly Timer timer;
+        private const int MapWidth = 1400;
+        private const int MapHeight = 700;
+
         public GameForm()
         {
             MakeForm();
-            game = new Game(1400, 700);
+            game = new Game(MapWidth, MapHeight);
             game.Start();
 
             KeyDown += game.PlayerKeyController.KeyIsDown;
@@ -33,6 +36,9 @@ namespace LastNinja
 
         private void DrawDynamicObjects(object sender, PaintEventArgs args)
         {
+            var pen = new Pen(Color.Black, 20);
+            args.Graphics.DrawRectangle(pen, 30, 40, MapWidth, MapHeight);
+
             foreach (var gameObject in game.StaticObjects)
             {
                 if (gameObject is Stone)

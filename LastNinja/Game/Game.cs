@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
 
 namespace LastNinja
 {
@@ -23,7 +24,7 @@ namespace LastNinja
 
         public void Start()
         {
-            var warrior1 = new Warrior(player, map){X=200,Y=300};
+            var warrior1 = new Warrior(player, map) {X = 200, Y = 300};
             DynamicObjects.Add(warrior1);
             DynamicObjects.Add(player);
 

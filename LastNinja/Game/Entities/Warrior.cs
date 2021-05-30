@@ -4,9 +4,9 @@
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public (int Dx, int Dy) Size { get; }
+        public (int Dx, int Dy) Size { get; set; }
         public Direction Direction { get; private set; }
-        public int Speed { get; } = 4;
+        public int Speed { get; } = 5;
 
         private readonly Player player;
         private readonly Map map;
@@ -46,7 +46,7 @@
                 Direction = Direction.Down;
             }
 
-            if (map.InBounds(new Warrior(player, map) {X = x, Y = y}))
+            if (map.InBounds(new Warrior(player, map) {X = x, Y = y, Size = (player.Size.Dx, player.Size.Dy)}))
                 (X, Y) = (x, y);
         }
 
