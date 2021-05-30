@@ -21,21 +21,28 @@ namespace LastNinja
 
             timer = new Timer {Interval = 1};
             timer.Start();
+
             timer.Tick += (sender, args) =>
             {
                 game.GameTick();
                 Invalidate();
             };
 
-            Paint += DrawDinamicObjects;
+            Paint += DrawDynamicObjects;
         }
 
-        private void DrawDinamicObjects(object sender, PaintEventArgs args)
+        private void DrawDynamicObjects(object sender, PaintEventArgs args)
         {
-            foreach (var gameObject in game.DynamicObjects)
+            foreach (var gameObject in game.GameObjects)
             {
                 if (gameObject is Player)
                     args.Graphics.DrawImage(Resource1.player, gameObject.X, gameObject.Y);
+
+                if (gameObject is Warrior)
+                    args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y);
+
+                if (gameObject is Stone)
+                    args.Graphics.DrawImage(Resource1.stone1, gameObject.X, gameObject.Y);
             }
         }
 

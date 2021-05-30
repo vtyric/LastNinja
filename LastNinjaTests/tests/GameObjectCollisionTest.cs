@@ -1,18 +1,11 @@
 ﻿using NUnit.Framework;
-using LastNinja;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 
 namespace LastNinja.Tests
 {
     [TestFixture()]
-    public class GameObjectExtensionTests
+    public class GameObjectCollisionTest
     {
-        
         [TestCase(10, 10, 5, 5, 15, 15, 10, 10, true)]
         [TestCase(20, 20, 5, 5, 40, 40, 5, 5, false)]
         [TestCase(10, 10, 10, 10, 20, 20, 20, 20, true)]

@@ -12,6 +12,7 @@ namespace LastNinja
         public int Down { get; set; }
         public int Left { get; set; }
         public Direction Direction { get; set; } = Direction.Right;
+        public int Speed { get; } = 10;
 
         private readonly Map map;
 
