@@ -1,17 +1,15 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace LastNinja
 {
-
-
-    public class GameForm:Form
+    public class GameForm : Form
     {
         private readonly Game game;
         private readonly Timer timer;
-        private const int MapWidth = 1400;
+        private const int MapWidth = 1100;
         private const int MapHeight = 700;
+        private const int UpLabelHeight = 20;
 
         public GameForm()
         {
@@ -31,37 +29,74 @@ namespace LastNinja
                 Invalidate();
             };
 
+            MakeLabels();
             Paint += DrawDynamicObjects;
         }
 
         private void DrawDynamicObjects(object sender, PaintEventArgs args)
         {
             var pen = new Pen(Color.Black, 20);
-            args.Graphics.DrawRectangle(pen, 40, 60, MapWidth, MapHeight);
+            args.Graphics.DrawRectangle(pen, 40, 60 + UpLabelHeight, MapWidth, MapHeight);
 
             foreach (var gameObject in game.StaticObjects)
-            {
                 if (gameObject is Stone)
-                    args.Graphics.DrawImage(Resource1.stone1, gameObject.X, gameObject.Y);
-            }
+                    args.Graphics.DrawImage(Resource1.stone1, gameObject.X, gameObject.Y + UpLabelHeight);
 
             foreach (var gameObject in game.DynamicObjects)
             {
                 if (gameObject is Player)
-                    args.Graphics.DrawImage(Resource1.player, gameObject.X, gameObject.Y);
+                    args.Graphics.DrawImage(Resource1.player, gameObject.X, gameObject.Y + UpLabelHeight);
 
                 if (gameObject is Warrior)
-                    args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y);
+                    args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y + UpLabelHeight);
             }
+        }
+
+        private void MakeLabels()
+        {
+            var controlLabel = new Label
+            {
+                Text =
+                    @"управление:
+передвижение - стрелочками
+кикинуть сюрикен - space",
+                Font = new Font("Arial", 20),
+                Location = new Point(1200, 40),
+                Size = new Size(520, 300)
+            };
+
+            var healthLabel = new ProgressBar
+            {
+                Value = game.PlayerHealth,
+                Location = new Point(game.player.X, game.player.Y - 15 + UpLabelHeight),
+                Size = new Size(70, 5)
+            };
+
+            var scoreLabel = new Label
+            {
+                Text = $@"Score: {game.Score}",
+                Location = new Point(MapWidth / 2, 20),
+                Size = new Size(200, 30),
+                Font = new Font("Arial", 20)
+            };
+
+            Controls.Add(healthLabel);
+            Controls.Add(scoreLabel);
+            Controls.Add(controlLabel);
+
+            timer.Tick += (sender, args) =>
+            {
+                scoreLabel.Text = $@"Score: {game.Score}";
+                healthLabel.Location = new Point(game.player.X, game.player.Y - 20 + UpLabelHeight);
+            };
         }
 
         private void MakeForm()
         {
             DoubleBuffered = true;
             ClientSize = new Size(1600, 800);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
             BackColor = Color.Bisque;
+            StartPosition = FormStartPosition.CenterScreen;
         }
     }
 }
