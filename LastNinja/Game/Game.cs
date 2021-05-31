@@ -11,26 +11,26 @@ namespace LastNinja
         public List<IDynamicObject> DynamicObjects { get; }
         public int Score { get; private set; }
         public int PlayerHealth { get; private set; } = 100;
+        public Player Player { get; }
 
         private readonly Map map;
-        public readonly Player player;
 
         public Game(int mapWidth,int mapHeight)
         {
             map = new Map(mapWidth, mapHeight);
-            player = new Player(map) {X = mapWidth / 2, Y = mapHeight / 2};
-            PlayerKeyController = new PlayerKeyController(player);
+            Player = new Player(map) {X = mapWidth / 2, Y = mapHeight / 2};
+            PlayerKeyController = new PlayerKeyController(Player);
             DynamicObjects = new List<IDynamicObject>();
             StaticObjects = new List<IStaticObject>();
         }
 
         public void Start()
         {
-            var warrior1 = new Warrior(player, map) {X = 200, Y = 300};
-            var warrior2 = new Warrior(player, map) { X = 500, Y = 600 };
+            var warrior1 = new Warrior(Player, map) {X = 200, Y = 300};
+            var warrior2 = new Warrior(Player, map) { X = 500, Y = 600 };
             DynamicObjects.Add(warrior1);
             DynamicObjects.Add(warrior2);
-            DynamicObjects.Add(player);
+            DynamicObjects.Add(Player);
 
             MakeStoneWall(650, 950, 400, 400);
             MakeStoneWall(300,300,250,500);

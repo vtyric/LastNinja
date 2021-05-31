@@ -68,7 +68,7 @@ namespace LastNinja
             var healthLabel = new ProgressBar
             {
                 Value = game.PlayerHealth,
-                Location = new Point(game.player.X, game.player.Y - 15 + UpLabelHeight),
+                Location = new Point(game.Player.X, game.Player.Y - 15 + UpLabelHeight),
                 Size = new Size(70, 5)
             };
 
@@ -87,7 +87,7 @@ namespace LastNinja
             timer.Tick += (sender, args) =>
             {
                 scoreLabel.Text = $@"Score: {game.Score}";
-                healthLabel.Location = new Point(game.player.X, game.player.Y - 20 + UpLabelHeight);
+                healthLabel.Location = new Point(game.Player.X, game.Player.Y - 20 + UpLabelHeight);
             };
         }
 
