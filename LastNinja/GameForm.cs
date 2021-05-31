@@ -67,7 +67,7 @@ namespace LastNinja
 
             var healthLabel = new ProgressBar
             {
-                Value = game.PlayerHealth,
+                Value = game.Player.Health,
                 Location = new Point(game.Player.X, game.Player.Y - 15 + UpLabelHeight),
                 Size = new Size(70, 5)
             };

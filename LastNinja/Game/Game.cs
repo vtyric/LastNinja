@@ -10,7 +10,6 @@ namespace LastNinja
         public List<IStaticObject> StaticObjects { get; }
         public List<IDynamicObject> DynamicObjects { get; }
         public int Score { get; private set; }
-        public int PlayerHealth { get; private set; } = 100;
         public Player Player { get; }
 
         private readonly Map map;
