@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LastNinja
@@ -49,6 +50,9 @@ namespace LastNinja
 
                 if (gameObject is Warrior)
                     args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y + UpLabelHeight);
+
+                if(gameObject is Suriken)
+                    args.Graphics.DrawImage(Resource1.suriken, gameObject.X, gameObject.Y + UpLabelHeight);
             }
         }
 
@@ -87,6 +91,7 @@ namespace LastNinja
             timer.Tick += (sender, args) =>
             {
                 scoreLabel.Text = $@"Score: {game.Score}";
+                healthLabel.Value =game.Player.Health;
                 healthLabel.Location = new Point(game.Player.X, game.Player.Y - 20 + UpLabelHeight);
             };
         }
