@@ -19,7 +19,7 @@ namespace LastNinja
         {
             map = new Map(mapWidth, mapHeight);
             Player = new Player(map) {X = mapWidth / 2, Y = mapHeight / 2};
-            PlayerKeyController = new PlayerKeyController(Player);
+            PlayerKeyController = new PlayerKeyController(Player, map, DynamicObjects);
             DynamicObjects = new List<IDynamicObject>();
             StaticObjects = new List<IStaticObject>();
         }

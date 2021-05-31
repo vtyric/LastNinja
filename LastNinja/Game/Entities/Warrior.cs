@@ -5,8 +5,9 @@
         public int X { get; set; }
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; set; }
+        public int Health { get; set; }
+        public bool IsWorking { get; set; } = true;
         public Direction Direction { get; private set; }
-        public int Speed { get; } = 5;
 
         private readonly Player player;
         private readonly Map map;
@@ -20,35 +21,35 @@
 
         public void Move()
         {
+            const int speed = 5;
             var (x, y) = (X, Y);
 
             if (x > player.X)
             {
-                x -= Speed;
+                x -= speed;
                 Direction = Direction.Left;
             }
 
             if (x < player.X)
             {
-                x += Speed;
+                x += speed;
                 Direction = Direction.Right;
             }
 
             if (y > player.Y)
             {
-                y -= Speed;
+                y -= speed;
                 Direction = Direction.Up;
             }
 
             if (y < player.Y)
             {
-                y += Speed;
+                y += speed;
                 Direction = Direction.Down;
             }
 
-            if (map.InBounds(new Warrior(player, map) {X = x, Y = y, Size = (player.Size.Dx, player.Size.Dy)}))
+            if (map.InBounds(new Warrior(player, map) {X = x, Y = y}))
                 (X, Y) = (x, y);
         }
-
     }
 }

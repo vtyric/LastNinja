@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LastNinja
+﻿namespace LastNinja
 {
     public class Map
     {

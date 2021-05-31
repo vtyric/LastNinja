@@ -4,6 +4,5 @@
     {
         void Move();
         Direction Direction { get; }
-        int Speed { get; }
     }
 }

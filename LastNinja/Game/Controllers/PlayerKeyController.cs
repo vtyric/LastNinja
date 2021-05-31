@@ -1,14 +1,19 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace LastNinja
 {
     public class PlayerKeyController
     {
         private readonly Player player;
+        private readonly Map map;
+        private readonly List<IDynamicObject> dynamicObjects;
 
-        public PlayerKeyController(Player player)
+        public PlayerKeyController(Player player, Map map, List<IDynamicObject> dynamicObjects)
         {
             this.player = player;
+            this.map = map;
+            this.dynamicObjects = dynamicObjects;
         }
 
         public void KeyIsDown(object sender, KeyEventArgs args)
@@ -53,6 +58,9 @@ namespace LastNinja
 
             if (args.KeyCode == Keys.Right)
                 player.Right = 0;
+
+            if (args.KeyCode == Keys.Space)
+                dynamicObjects.Add(new Suriken(map, player));
         }
     }
 }
