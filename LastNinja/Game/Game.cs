@@ -96,6 +96,13 @@ namespace LastNinja
                             warriors.Remove(warrior);
                             Score++;
                         }
+                        else if (StaticObjects.Any(x => x.IsCollided(suriken)))
+                        {
+                            toDelete.Add(suriken);
+                            suriken.IsWorking = false;
+                        }
+
+
                 }
 
             if (toDelete != null)
