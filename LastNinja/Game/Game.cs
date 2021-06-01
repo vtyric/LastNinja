@@ -14,7 +14,7 @@ namespace LastNinja
 
         private readonly Map map;
         private readonly HashSet<IDynamicObject> toDelete;
-        private readonly HashSet<IGameObject> warriors;
+        private int warriorsCount = 2;
         private readonly Player player;
         private int score;
 
@@ -26,15 +26,12 @@ namespace LastNinja
             StaticObjects = new List<IGameObject>();
             PlayerKeyController = new PlayerKeyController(player, map, DynamicObjects);
             toDelete = new HashSet<IDynamicObject>();
-            warriors = new HashSet<IGameObject>();
         }
 
         public void Start()
         {
             var warrior1 = new Warrior(player, map) {X = 200, Y = 300};
             var warrior2 = new Warrior(player, map) {X = 500, Y = 600};
-            warriors.Add(warrior1);
-            warriors.Add(warrior2);
             DynamicObjects.Add(warrior1);
             DynamicObjects.Add(warrior2);
             DynamicObjects.Add(player);
@@ -68,6 +65,7 @@ namespace LastNinja
                     }
 
                     toDelete.Add(dynamicObject);
+                    dynamicObject.IsWorking = false;
                 }
                 else
                 {
@@ -84,12 +82,12 @@ namespace LastNinja
             foreach (var dynamicObject in DynamicObjects)
                 if (dynamicObject is Warrior warrior)
                 {
-                    if (player.IsCollided(warrior))
+                    if (player.IsCollided(warrior) && warrior.IsWorking)
                     {
                         toDelete.Add(warrior);
                         warrior.IsWorking = false;
-                        warriors.Remove(warrior);
                         player.Health -= 2;
+                        warriorsCount--;
                     }
 
                     foreach (var suriken in DynamicObjects.Where(x => x is Suriken))
@@ -97,8 +95,8 @@ namespace LastNinja
                         {
                             toDelete.Add(suriken);
                             toDelete.Add(warrior);
-                            warriors.Remove(warrior);
                             score++;
+                            warriorsCount--;
                         }
                         else if (StaticObjects.Any(x => x.IsCollided(suriken)))
                         {
@@ -113,14 +111,14 @@ namespace LastNinja
 
             toDelete?.Clear();
 
-            if (warriors.Count != 2)
+            if (warriorsCount != 2)
             {
-                var warrior = warriors.Count == 0
+                var warrior = warriorsCount == 0
                     ? new Warrior(player, map) {X = 100, Y = 200}
                     : new Warrior(player, map) {X = 600, Y = 200};
 
-                warriors.Add(warrior);
                 DynamicObjects.Add(warrior);
+                warriorsCount++;
             }
 
             SetState();
