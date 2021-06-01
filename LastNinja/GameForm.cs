@@ -80,7 +80,7 @@ namespace LastNinja
 
             game.PLayerStateChanged += (player, score) =>
             {
-                if(player.Health<0)
+                if (player.Health < 0)
                 {
                     Close();
                     return;

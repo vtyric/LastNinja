@@ -3,11 +3,12 @@ using System.Windows.Forms;
 
 namespace LastNinja
 {
-    public class StartForm : Form
+   
+    public class MenuForm : Form
     {
-        public StartForm()
+        public MenuForm()
         {
-            var height = 100;
+            var height = 200;
             ClientSize = new Size(1200, 700);
             StartPosition = FormStartPosition.CenterScreen;
 
@@ -30,7 +31,11 @@ namespace LastNinja
             {
                 var game = new GameForm();
                 Hide();
-                game.FormClosed += (o, eventArgs) => Close();
+                game.FormClosed += (o, eventArgs) =>
+                {
+                    Show();
+                    startGameLabel.Image = Resource1.restart;
+                };
                 game.Show();
             };
         }
