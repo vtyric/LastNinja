@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LastNinja
@@ -24,14 +25,9 @@ namespace LastNinja
             timer = new Timer {Interval = 1};
             timer.Start();
 
-            timer.Tick += (sender, args) =>
-            {
-                game.GameTick();
-                Invalidate();
-            };
-
-            MakeLabels();
+            timer.Tick += (sender, args) => game.GameTick();
             Paint += DrawDynamicObjects;
+            MakeLabels();
         }
 
         private void DrawDynamicObjects(object sender, PaintEventArgs args)
@@ -69,16 +65,10 @@ namespace LastNinja
                 Size = new Size(520, 300)
             };
 
-            var healthLabel = new ProgressBar
-            {
-                Value = game.Player.Health,
-                Location = new Point(game.Player.X, game.Player.Y - 15 + UpLabelHeight),
-                Size = new Size(70, 5)
-            };
+            var healthLabel = new ProgressBar {Size = new Size(70, 5)};
 
             var scoreLabel = new Label
             {
-                Text = $@"Score: {game.Score}",
                 Location = new Point(MapWidth / 2, 20),
                 Size = new Size(200, 30),
                 Font = new Font("Arial", 20)
@@ -88,11 +78,18 @@ namespace LastNinja
             Controls.Add(scoreLabel);
             Controls.Add(controlLabel);
 
-            timer.Tick += (sender, args) =>
+            game.PLayerStateChanged += (player, score) =>
             {
-                scoreLabel.Text = $@"Score: {game.Score}";
-                healthLabel.Value =game.Player.Health;
-                healthLabel.Location = new Point(game.Player.X, game.Player.Y - 20 + UpLabelHeight);
+                if(player.Health<0)
+                {
+                    Close();
+                    return;
+                }
+
+                scoreLabel.Text = $@"Score: {score}";
+                healthLabel.Value = player.Health;
+                healthLabel.Location = new Point(player.X, player.Y - 20 + UpLabelHeight);
+                Invalidate();
             };
         }
 

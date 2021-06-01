@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Schema;
 
 namespace LastNinja
 {
@@ -9,36 +9,38 @@ namespace LastNinja
         public PlayerKeyController PlayerKeyController { get; }
         public List<IStaticObject> StaticObjects { get; }
         public List<IDynamicObject> DynamicObjects { get; }
-        public int Score { get; private set; }
-        public Player Player { get; }
+
+        public event Action<(int X, int Y, int Health), int> PLayerStateChanged;
 
         private readonly Map map;
         private readonly HashSet<IDynamicObject> toDelete;
         private readonly HashSet<IGameObject> warriors;
+        private readonly Player player;
+        private int score;
 
-        public Game(int mapWidth,int mapHeight)
+        public Game(int mapWidth, int mapHeight)
         {
             map = new Map(mapWidth, mapHeight);
-            Player = new Player(map) {X = mapWidth / 2, Y = mapHeight / 2};
+            player = new Player(map) {X = mapWidth / 2, Y = mapHeight / 2};
             DynamicObjects = new List<IDynamicObject>();
             StaticObjects = new List<IStaticObject>();
-            PlayerKeyController = new PlayerKeyController(Player, map, DynamicObjects);
+            PlayerKeyController = new PlayerKeyController(player, map, DynamicObjects);
             toDelete = new HashSet<IDynamicObject>();
             warriors = new HashSet<IGameObject>();
         }
 
         public void Start()
         {
-            var warrior1 = new Warrior(Player, map) {X = 200, Y = 300};
-            var warrior2 = new Warrior(Player, map) { X = 500, Y = 600 };
+            var warrior1 = new Warrior(player, map) {X = 200, Y = 300};
+            var warrior2 = new Warrior(player, map) {X = 500, Y = 600};
             warriors.Add(warrior1);
             warriors.Add(warrior2);
             DynamicObjects.Add(warrior1);
             DynamicObjects.Add(warrior2);
-            DynamicObjects.Add(Player);
+            DynamicObjects.Add(player);
 
             MakeStoneWall(650, 950, 400, 400);
-            MakeStoneWall(300,300,250,500);
+            MakeStoneWall(300, 300, 250, 500);
         }
 
         private void MakeStoneWall(int startX, int endX, int startY, int endY)
@@ -46,6 +48,11 @@ namespace LastNinja
             for (var x = startX; x <= endX; x += 75)
             for (var y = endY; y >= startY; y -= 75)
                 StaticObjects.Add(new Stone {X = x, Y = y});
+        }
+
+        private void SetState()
+        {
+            PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
         }
 
         public void GameTick()
@@ -80,12 +87,12 @@ namespace LastNinja
             foreach (var dynamicObject in DynamicObjects)
                 if (dynamicObject is Warrior warrior)
                 {
-                    if (Player.IsCollided(warrior))
+                    if (player.IsCollided(warrior))
                     {
                         toDelete.Add(warrior);
                         warrior.IsWorking = false;
                         warriors.Remove(warrior);
-                        Player.Health -= 2;
+                        player.Health -= 2;
                     }
 
                     foreach (var suriken in DynamicObjects.Where(x => x is Suriken))
@@ -94,15 +101,13 @@ namespace LastNinja
                             toDelete.Add(suriken);
                             toDelete.Add(warrior);
                             warriors.Remove(warrior);
-                            Score++;
+                            score++;
                         }
                         else if (StaticObjects.Any(x => x.IsCollided(suriken)))
                         {
                             toDelete.Add(suriken);
                             suriken.IsWorking = false;
                         }
-
-
                 }
 
             if (toDelete != null)
@@ -114,12 +119,14 @@ namespace LastNinja
             if (warriors.Count != 2)
             {
                 var warrior = warriors.Count == 0
-                    ? new Warrior(Player, map) {X = 100, Y = 200}
-                    : new Warrior(Player, map) {X = 600, Y = 200};
+                    ? new Warrior(player, map) {X = 100, Y = 200}
+                    : new Warrior(player, map) {X = 600, Y = 200};
 
                 warriors.Add(warrior);
                 DynamicObjects.Add(warrior);
             }
+
+            SetState();
         }
     }
 }

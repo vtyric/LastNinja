@@ -14,7 +14,7 @@
 
         public Warrior(Player player,Map map)
         {
-            Size = (40, 40);
+            Size = (30, 30);
             this.player = player;
             this.map = map;
         }
