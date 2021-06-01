@@ -1,6 +1,6 @@
 ﻿namespace LastNinja
 {
-    public class Stone : IStaticObject
+    public class Stone : IGameObject
     {
         public int X { get; set; }
         public int Y { get; set; }

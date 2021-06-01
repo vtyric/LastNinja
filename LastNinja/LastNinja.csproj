@@ -54,10 +54,9 @@
     <Compile Include="Game\Entities\IDynamicObject.cs" />
     <Compile Include="Game\Entities\IGameObject.cs" />
     <Compile Include="Game\Game.cs" />
-    <Compile Include="Game\Entities\IStaticObject.cs" />
     <Compile Include="Game\Map.cs" />
     <Compile Include="Game\Entities\Player.cs" />
-    <Compile Include="Game\Controllers\PlayerKeyController.cs" />
+    <Compile Include="Game\PlayerKeyController.cs" />
     <Compile Include="Game\Entities\Stone.cs" />
     <Compile Include="Game\Entities\Warrior.cs" />
     <Compile Include="Game\Suriken.cs" />
@@ -124,5 +123,6 @@
   <ItemGroup>
     <None Include="Resources\restart.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

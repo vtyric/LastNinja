@@ -7,7 +7,7 @@ namespace LastNinja
     public class Game
     {
         public PlayerKeyController PlayerKeyController { get; }
-        public List<IStaticObject> StaticObjects { get; }
+        public List<IGameObject> StaticObjects { get; }
         public List<IDynamicObject> DynamicObjects { get; }
 
         public event Action<(int X, int Y, int Health), int> PLayerStateChanged;
@@ -23,7 +23,7 @@ namespace LastNinja
             map = new Map(mapWidth, mapHeight);
             player = new Player(map) {X = mapWidth / 2, Y = mapHeight / 2};
             DynamicObjects = new List<IDynamicObject>();
-            StaticObjects = new List<IStaticObject>();
+            StaticObjects = new List<IGameObject>();
             PlayerKeyController = new PlayerKeyController(player, map, DynamicObjects);
             toDelete = new HashSet<IDynamicObject>();
             warriors = new HashSet<IGameObject>();
@@ -50,10 +50,7 @@ namespace LastNinja
                 StaticObjects.Add(new Stone {X = x, Y = y});
         }
 
-        private void SetState()
-        {
-            PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
-        }
+        private void SetState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
 
         public void GameTick()
         {

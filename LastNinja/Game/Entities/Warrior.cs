@@ -1,4 +1,6 @@
-﻿namespace LastNinja
+﻿using System;
+
+namespace LastNinja
 {
     public class Warrior:IDynamicObject
     {
@@ -14,6 +16,7 @@
 
         public Warrior(Player player,Map map)
         {
+            var rnd = new Random();
             Size = (30, 30);
             this.player = player;
             this.map = map;
