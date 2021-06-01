@@ -13,7 +13,7 @@ namespace LastNinja
 
             var startGameLabel = new Label
             {
-                Location = new Point(ClientSize.Width / 2, ClientSize.Height / 2),
+                Location = new Point(ClientSize.Width / 2-100, ClientSize.Height / 2),
                 Size = new Size(ClientSize.Width, height),
                 Text = "Начать игру",
                 Font = new Font("Arial", 30)
@@ -21,7 +21,7 @@ namespace LastNinja
 
             SizeChanged += (sender, args) =>
             {
-                startGameLabel.Location = new Point(ClientSize.Width / 2, ClientSize.Height / 2 );
+                startGameLabel.Location = new Point(ClientSize.Width / 2-100, ClientSize.Height / 2 );
                 startGameLabel.Size = new Size(ClientSize.Width, height);
             };
 
