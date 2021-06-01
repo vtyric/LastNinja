@@ -13,15 +13,14 @@ namespace LastNinja
 
             var startGameLabel = new Label
             {
-                Location = new Point(ClientSize.Width / 2-100, ClientSize.Height / 2),
+                Location = new Point(ClientSize.Width /16-80, ClientSize.Height / 2-100),
                 Size = new Size(ClientSize.Width, height),
-                Text = "Начать игру",
-                Font = new Font("Arial", 30)
+                Image = Resource1.start_game
             };
 
             SizeChanged += (sender, args) =>
             {
-                startGameLabel.Location = new Point(ClientSize.Width / 2-100, ClientSize.Height / 2 );
+                startGameLabel.Location = new Point(ClientSize.Width / 16-80, ClientSize.Height / 2-100 );
                 startGameLabel.Size = new Size(ClientSize.Width, height);
             };
 
@@ -30,6 +29,8 @@ namespace LastNinja
             startGameLabel.Click += (sender, args) =>
             {
                 var game = new GameForm();
+                Hide();
+                game.FormClosed += (o, eventArgs) => Close();
                 game.Show();
             };
         }
