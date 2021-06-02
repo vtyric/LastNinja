@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace LastNinja
 {
-   
     public class MenuForm : Form
     {
         public MenuForm()
@@ -14,14 +13,14 @@ namespace LastNinja
 
             var startGameLabel = new Label
             {
-                Location = new Point(ClientSize.Width /16-80, ClientSize.Height / 2-100),
+                Location = new Point(ClientSize.Width / 16 - 80, ClientSize.Height / 2 - 100),
                 Size = new Size(ClientSize.Width, height),
                 Image = Resource1.start_game
             };
 
             SizeChanged += (sender, args) =>
             {
-                startGameLabel.Location = new Point(ClientSize.Width / 16-80, ClientSize.Height / 2-100 );
+                startGameLabel.Location = new Point(ClientSize.Width / 16 - 80, ClientSize.Height / 2 - 100);
                 startGameLabel.Size = new Size(ClientSize.Width, height);
             };
 

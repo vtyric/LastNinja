@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace LastNinja
 {
@@ -48,9 +47,22 @@ namespace LastNinja
                 StaticObjects.Add(new Stone {X = x, Y = y});
         }
 
-        private void SetState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
-
         public void GameTick()
+        {
+            MoveDynamicObjects();
+
+            CheckObjectsInteraction();
+
+            DeleteDisabledObjects();
+
+            CheckWarriorsCount();
+
+            SetPlayerState();
+        }
+
+        private void SetPlayerState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
+
+        private void MoveDynamicObjects()
         {
             foreach (var dynamicObject in DynamicObjects)
                 if (!StaticObjects.Any(x => x.IsCollided(dynamicObject)))
@@ -68,7 +80,10 @@ namespace LastNinja
                     dynamicObject.X = dynamicObject.PrevX;
                     dynamicObject.Y = dynamicObject.PrevY;
                 }
+        }
 
+        private void CheckObjectsInteraction()
+        {
             foreach (var dynamicObject in DynamicObjects)
                 if (dynamicObject is Warrior warrior)
                 {
@@ -94,13 +109,19 @@ namespace LastNinja
                             suriken.IsWorking = false;
                         }
                 }
+        }
 
+        private void DeleteDisabledObjects()
+        {
             if (toDelete != null)
                 foreach (var gameObject in toDelete)
                     DynamicObjects.Remove(gameObject);
 
             toDelete?.Clear();
+        }
 
+        private void CheckWarriorsCount()
+        {
             if (warriorsCount != 2)
             {
                 var warrior = warriorsCount == 0
@@ -110,8 +131,6 @@ namespace LastNinja
                 DynamicObjects.Add(warrior);
                 warriorsCount++;
             }
-
-            SetState();
         }
     }
 }
