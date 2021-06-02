@@ -4,5 +4,6 @@
     {
         void Move();
         int DamageToStaticObjects { get; }
+        bool IsWorking { get; set; }
     }
 }

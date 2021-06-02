@@ -6,6 +6,5 @@
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; set; } = (50, 60);
         public int Health { get; set; } = 500;
-        public bool IsWorking { get; set; } = true;
     }
 }
