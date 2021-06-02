@@ -10,13 +10,14 @@ namespace LastNinja
         public List<IGameObject> StaticObjects { get; }
         public List<IDynamicObject> DynamicObjects { get; }
 
-        public event Action<(int X, int Y, int Health), int> PLayerStateChanged;
+        public event Action<(int X, int Y, int Health), int, bool> PLayerStateChanged;
 
         private readonly Map map;
         private readonly HashSet<IGameObject> toDelete;
         private int warriorsCount = 3;
         private readonly Player player;
         private int score;
+        private bool endGame;
 
         public Game(int mapWidth, int mapHeight)
         {
@@ -67,7 +68,8 @@ namespace LastNinja
             }
         }
 
-        private void SetPlayerState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
+        private void SetPlayerState()
+            => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score, endGame);
 
         private void MoveDynamicObjects()
         {
@@ -91,6 +93,7 @@ namespace LastNinja
                 warrior.IsWorking = false;
                 player.Health -= warrior.Damage;
                 warriorsCount--;
+                endGame = player.Health <= 0;
             }
 
             foreach (var suriken in DynamicObjects.Where(x

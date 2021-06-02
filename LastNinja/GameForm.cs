@@ -78,9 +78,9 @@ namespace LastNinja
             Controls.Add(scoreLabel);
             Controls.Add(controlLabel);
 
-            game.PLayerStateChanged += (player, score) =>
+            game.PLayerStateChanged += (player, score, endGame) =>
             {
-                if (player.Health < 0)
+                if (endGame)
                 {
                     Close();
                     return;
