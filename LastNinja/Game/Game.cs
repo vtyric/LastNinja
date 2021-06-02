@@ -37,6 +37,8 @@ namespace LastNinja
 
             MakeStoneWall(650, 950, 400, 400);
             MakeStoneWall(300, 300, 250, 500);
+            MakeStoneWall(650, 950, 200, 200);
+            MakeStoneWall(100, 100, 250, 500);
         }
 
         private void MakeStoneWall(int startX, int endX, int startY, int endY)
@@ -103,7 +105,7 @@ namespace LastNinja
 
                     foreach (var staticObject in StaticObjects.Where(staticObject => warrior.IsCollided(staticObject)))
                     {
-                        staticObject.Health -= 1;
+                        staticObject.Health -= 2;
                         if (staticObject.Health < 0)
                         {
                             toDelete.Add(staticObject);
