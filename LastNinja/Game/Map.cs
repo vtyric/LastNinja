@@ -1,4 +1,6 @@
-﻿namespace LastNinja
+﻿using System.Collections.Generic;
+
+namespace LastNinja
 {
     public class Map
     {
