@@ -112,7 +112,7 @@ namespace LastNinja
             foreach (var staticObject in StaticObjects.Where(staticObject
                 => dynamicObject.IsCollided(staticObject) && dynamicObject.IsWorking))
             {
-                staticObject.Health -= dynamicObject.StaticObjectsDamage;
+                staticObject.Health -= dynamicObject.DamageToStaticObjects;
 
                 if (staticObject.Health < 0)
                 {

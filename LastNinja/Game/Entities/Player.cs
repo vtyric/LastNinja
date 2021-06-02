@@ -6,7 +6,7 @@
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; set; } = (30, 30);
         public int Health { get; set; } = 100;
-        public int StaticObjectsDamage { get; } = 0;
+        public int DamageToStaticObjects { get; } = 0;
         public bool IsWorking { get; set; } = true;
         public int Right { get; set; }
         public int Up { get; set; }
