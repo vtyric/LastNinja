@@ -7,7 +7,7 @@
         public (int Dx, int Dy) Size { get; set; } = (10, 10);
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
-        public int Damage { get; } = 100;
+        public int StaticObjectsDamage { get; } = 100;
 
         private readonly Map map;
         private readonly Direction direction;

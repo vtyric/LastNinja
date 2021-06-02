@@ -30,9 +30,9 @@ namespace LastNinja
 
         public void Start()
         {
-            //DynamicObjects.Add(new Warrior(player, map));
-            //DynamicObjects.Add(new Warrior(player, map));
-            //DynamicObjects.Add(new Warrior(player, map));
+            DynamicObjects.Add(new Warrior(player, map));
+            DynamicObjects.Add(new Warrior(player, map));
+            DynamicObjects.Add(new Warrior(player, map));
             DynamicObjects.Add(player);
 
             MakeStoneWall(650, 950, 400, 400);
@@ -43,8 +43,10 @@ namespace LastNinja
 
         private void MakeStoneWall(int startX, int endX, int startY, int endY)
         {
-            for (var x = startX; x <= endX; x += 75)
-            for (var y = endY; y >= startY; y -= 75)
+            const int delta = 75;
+
+            for (var x = startX; x <= endX; x += delta)
+            for (var y = endY; y >= startY; y -= delta)
             {
                 var stone = new Stone {X = x, Y = y};
                 StaticObjects.Add(stone);
@@ -91,7 +93,7 @@ namespace LastNinja
                     {
                         toDelete.Add(warrior);
                         warrior.IsWorking = false;
-                        player.Health -= 5;
+                        player.Health -= warrior.Damage;
                         warriorsCount--;
                     }
 
@@ -109,7 +111,7 @@ namespace LastNinja
                 foreach (var staticObject in StaticObjects.Where(staticObject
                     => dynamicObject.IsCollided(staticObject) && dynamicObject.IsWorking))
                 {
-                    staticObject.Health -= dynamicObject.Damage;
+                    staticObject.Health -= dynamicObject.StaticObjectsDamage;
 
                     if (staticObject.Health < 0)
                     {
@@ -124,7 +126,6 @@ namespace LastNinja
                     }
                 }
             }
-
         }
 
         private void DeleteDisabledObjects()

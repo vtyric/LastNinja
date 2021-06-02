@@ -7,9 +7,10 @@ namespace LastNinja
         public int X { get; set; }
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; set; } = (30, 30);
-        public int Damage { get; } = 2;
+        public int StaticObjectsDamage { get; } = 2;
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
+        public int Damage { get; } = 5;
 
         private readonly Player player;
         private readonly Map map;

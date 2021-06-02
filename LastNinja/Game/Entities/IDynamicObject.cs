@@ -3,6 +3,6 @@
     public interface IDynamicObject : IGameObject
     {
         void Move();
-        int Damage { get; }
+        int StaticObjectsDamage { get; }
     }
 }
