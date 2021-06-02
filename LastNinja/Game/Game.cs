@@ -14,7 +14,7 @@ namespace LastNinja
 
         private readonly Map map;
         private readonly HashSet<IDynamicObject> toDelete;
-        private int warriorsCount = 2;
+        private int warriorsCount = 3;
         private readonly Player player;
         private int score;
 
@@ -30,10 +30,9 @@ namespace LastNinja
 
         public void Start()
         {
-            var warrior1 = new Warrior(player, map) {X = 200, Y = 300};
-            var warrior2 = new Warrior(player, map) {X = 500, Y = 600};
-            DynamicObjects.Add(warrior1);
-            DynamicObjects.Add(warrior2);
+            DynamicObjects.Add(new Warrior(player,map));
+            DynamicObjects.Add(new Warrior(player, map));
+            DynamicObjects.Add(new Warrior(player, map));
             DynamicObjects.Add(player);
 
             MakeStoneWall(650, 950, 400, 400);
@@ -92,7 +91,7 @@ namespace LastNinja
                     {
                         toDelete.Add(warrior);
                         warrior.IsWorking = false;
-                        player.Health -= 2;
+                        player.Health -= 5;
                         warriorsCount--;
                     }
 
@@ -123,13 +122,9 @@ namespace LastNinja
 
         private void CheckWarriorsCount()
         {
-            if (warriorsCount != 2)
+            if (warriorsCount != 3)
             {
-                var warrior = warriorsCount == 0
-                    ? new Warrior(player, map) {X = 100, Y = 200}
-                    : new Warrior(player, map) {X = 600, Y = 200};
-
-                DynamicObjects.Add(warrior);
+                DynamicObjects.Add(new Warrior(player, map));
                 warriorsCount++;
             }
         }

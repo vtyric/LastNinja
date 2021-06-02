@@ -18,12 +18,25 @@ namespace LastNinja
                 Image = Resource1.start_game
             };
 
+            var controlLabel = new Label
+            {
+                Text =
+                    @"управление:
+передвижение - стрелочками
+кикинуть сюрикен - space",
+                Font = new Font("Arial", 20),
+                Location = new Point(ClientSize.Width/3, 20),
+                Size = new Size(400, 100)
+            };
+
             SizeChanged += (sender, args) =>
             {
                 startGameLabel.Location = new Point(ClientSize.Width / 16 - 80, ClientSize.Height / 2 - 100);
+                controlLabel.Location = new Point(ClientSize.Width / 3, 20);
                 startGameLabel.Size = new Size(ClientSize.Width, height);
             };
 
+            Controls.Add(controlLabel);
             Controls.Add(startGameLabel);
 
             startGameLabel.Click += (sender, args) =>
