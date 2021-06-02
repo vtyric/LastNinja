@@ -69,7 +69,15 @@ namespace LastNinja
         private void MoveDynamicObjects()
         {
             foreach (var dynamicObject in DynamicObjects)
+            {
                 dynamicObject.Move();
+
+                if (!dynamicObject.IsWorking)
+                {
+                    toDelete.Add(dynamicObject);
+                    dynamicObject.IsWorking = false;
+                }
+            }
         }
 
         private void CheckObjectsInteraction()
