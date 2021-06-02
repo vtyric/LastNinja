@@ -4,5 +4,7 @@
     {
         void Move();
         Direction Direction { get; }
+        int PrevX { get; }
+        int PrevY { get; }
     }
 }

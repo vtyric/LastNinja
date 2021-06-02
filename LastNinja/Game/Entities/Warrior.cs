@@ -10,6 +10,8 @@ namespace LastNinja
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
         public Direction Direction { get; private set; }
+        public int PrevX { get; private set; }
+        public int PrevY { get; private set; }
 
         private readonly Player player;
         private readonly Map map;
@@ -25,6 +27,7 @@ namespace LastNinja
         public void Move()
         {
             const int speed = 5;
+            (PrevX, PrevY) = (X, Y);
             var (x, y) = (X, Y);
 
             if (x > player.X)

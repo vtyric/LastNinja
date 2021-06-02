@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace LastNinja
 {
@@ -54,29 +55,18 @@ namespace LastNinja
             foreach (var dynamicObject in DynamicObjects)
                 if (!StaticObjects.Any(x => x.IsCollided(dynamicObject)))
                 {
-                    var (x, y) = (dynamicObject.X, dynamicObject.Y);
                     dynamicObject.Move();
 
-                    if (dynamicObject.IsWorking)
+                    if (!dynamicObject.IsWorking)
                     {
-                        map.Field[x, y] = null;
-                        map.Field[dynamicObject.X, dynamicObject.Y] = dynamicObject;
-                        continue;
+                        toDelete.Add(dynamicObject);
+                        dynamicObject.IsWorking = false;
                     }
-
-                    toDelete.Add(dynamicObject);
-                    dynamicObject.IsWorking = false;
                 }
                 else
                 {
-                    if (dynamicObject.Direction == Direction.Right)
-                        dynamicObject.X -= 10;
-                    if (dynamicObject.Direction == Direction.Left)
-                        dynamicObject.X += 10;
-                    if (dynamicObject.Direction == Direction.Up)
-                        dynamicObject.Y += 10;
-                    if (dynamicObject.Direction == Direction.Down)
-                        dynamicObject.Y -= 10;
+                    dynamicObject.X = dynamicObject.PrevX;
+                    dynamicObject.Y = dynamicObject.PrevY;
                 }
 
             foreach (var dynamicObject in DynamicObjects)
