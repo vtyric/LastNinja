@@ -39,7 +39,7 @@
         public bool InBounds(int x, int y, int sizeDx, int sizeDy)
             => x >= sizeDx && x < Width - sizeDx && y >= sizeDy && y < Height - sizeDy;
 
-        public bool IsSmthAtThisPoint(int x, int y) 
+        public bool IsSmthAtThisPoint(int x, int y)
             => x > -1 && x < Width && y > -1 && y < Height && Field[x, y] != null;
     }
 }

@@ -12,7 +12,7 @@ namespace LastNinja
         private const int MapHeight = 700;
         private const int UpLabelHeight = 20;
 
-        public int MaxScore { get; private set; }
+        public int Score { get; private set; }
 
         public GameForm()
         {
@@ -83,7 +83,7 @@ namespace LastNinja
             {
                 if (endGame)
                 {
-                    MaxScore = MaxScore <= score ? score : MaxScore;
+                    Score = score;
                     Close();
                     return;
                 }

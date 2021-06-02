@@ -10,6 +10,7 @@ namespace LastNinja
             var height = 200;
             ClientSize = new Size(1200, 700);
             StartPosition = FormStartPosition.CenterScreen;
+            var maxScore = 0;
 
             var startGameLabel = new Label
             {
@@ -17,7 +18,6 @@ namespace LastNinja
                 Size = new Size(ClientSize.Width, height),
                 Image = Resource1.start_game
             };
-            var game = new GameForm();
 
             var controlLabel = new Label
             {
@@ -29,7 +29,7 @@ namespace LastNinja
 
 Максимальный счет: 0",
                 Font = new Font("Arial", 20),
-                Location = new Point(ClientSize.Width/3, 20),
+                Location = new Point(ClientSize.Width / 3, 20),
                 Size = new Size(400, 200)
             };
 
@@ -46,15 +46,17 @@ namespace LastNinja
             startGameLabel.Click += (sender, args) =>
             {
                 Hide();
+                var game = new GameForm();
                 game.FormClosed += (o, eventArgs) =>
                 {
                     Show();
+                    maxScore = game.Score > maxScore ? game.Score : maxScore;
                     controlLabel.Text = $@"управление:
 передвижение - стрелочками
 кикинуть сюрикен - space
 
 
-Максимальный счет: {game.MaxScore}";
+Максимальный счет: {maxScore}";
                     startGameLabel.Image = Resource1.restart;
                 };
                 game.Show();
