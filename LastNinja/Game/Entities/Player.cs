@@ -27,10 +27,7 @@
             x += Right + Left;
             y += Up + Down;
 
-            var newPlayer = new Player(map)
-                {Direction = Direction, Size = (Size.Dx, Size.Dy), X = x, Y = y};
-
-            if (map.InBounds(newPlayer) && !map.IsSmthAtThisPoint(x, y))
+            if (map.InBounds(x, y, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(x, y))
                 (X, Y) = (x, y);
         }
     }

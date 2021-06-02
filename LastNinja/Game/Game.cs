@@ -30,8 +30,8 @@ namespace LastNinja
 
         public void Start()
         {
-            var warrior1 = new Warrior(player, map) { X = 200, Y = 300 };
-            var warrior2 = new Warrior(player, map) { X = 500, Y = 600 };
+            var warrior1 = new Warrior(player, map) {X = 200, Y = 300};
+            var warrior2 = new Warrior(player, map) {X = 500, Y = 600};
             DynamicObjects.Add(warrior1);
             DynamicObjects.Add(warrior2);
             DynamicObjects.Add(player);
@@ -64,7 +64,10 @@ namespace LastNinja
             SetPlayerState();
         }
 
-        private void SetPlayerState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
+        private void SetPlayerState()
+        {
+            PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
+        }
 
         private void MoveDynamicObjects()
         {

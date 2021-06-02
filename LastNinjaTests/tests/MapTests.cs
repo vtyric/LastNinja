@@ -17,9 +17,8 @@ namespace LastNinja.Tests
         public void InBoundsTest(int sizeDx, int sizeDy, int x, int y, int mapWidth, int mapHeight, bool expected)
         {
             var map = new Map(mapWidth, mapHeight);
-            var player = new Player(map) { Size = (sizeDx, sizeDy), X = x, Y = y };
 
-            map.InBounds(player).Should().Be(expected);
+            map.InBounds(x,y,sizeDx,sizeDy).Should().Be(expected);
         }
 
 

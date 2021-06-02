@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LastNinja
+﻿namespace LastNinja
 {
     public class Map
     {
@@ -38,13 +36,10 @@ namespace LastNinja
                 Field[x, y] = null;
         }
 
-        public bool InBounds(IGameObject gameObject)
-            => gameObject.X >= gameObject.Size.Dx
-               && gameObject.X < Width - gameObject.Size.Dx
-               && gameObject.Y >= gameObject.Size.Dy
-               && gameObject.Y < Height - gameObject.Size.Dy;
+        public bool InBounds(int x, int y, int sizeDx, int sizeDy)
+            => x >= sizeDx && x < Width - sizeDx && y >= sizeDy && y < Height - sizeDy;
 
-        public bool IsSmthAtThisPoint(int x, int y)
+        public bool IsSmthAtThisPoint(int x, int y) 
             => x > -1 && x < Width && y > -1 && y < Height && Field[x, y] != null;
     }
 }

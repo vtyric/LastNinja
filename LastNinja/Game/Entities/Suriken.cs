@@ -37,7 +37,7 @@ namespace LastNinja
             if (direction == Direction.Left)
                 x -= speed;
 
-            if (map.InBounds(new Suriken(map, player) {X = x, Y = y}))
+            if (map.InBounds(x,y,Size.Dx,Size.Dy))
                 (X, Y) = (x, y);
             else
                 IsWorking = false;
