@@ -100,22 +100,31 @@ namespace LastNinja
                             score++;
                             warriorsCount--;
                         }
-                        else
-                        {
-                            foreach (var staticObject in StaticObjects.Where(staticObject
-                                => staticObject.IsCollided(suriken)))
-                            {
-                                staticObject.Health -= 25;
-                                if (staticObject.Health < 0)
-                                {
-                                    toDelete.Add(staticObject);
-                                    map.Remove(staticObject);
-                                }
 
-                                toDelete.Add(suriken);
-                                suriken.IsWorking = false;
-                            }
+                    foreach (var staticObject in StaticObjects.Where(staticObject => warrior.IsCollided(staticObject)))
+                    {
+                        staticObject.Health -= 1;
+                        if (staticObject.Health < 0)
+                        {
+                            toDelete.Add(staticObject);
+                            map.Remove(staticObject);
                         }
+                    }
+                }
+                else if (dynamicObject is Suriken suriken)
+                {
+                    foreach (var staticObject in StaticObjects.Where(staticObject => staticObject.IsCollided(suriken)))
+                    {
+                        staticObject.Health -= 25;
+                        if (staticObject.Health < 0)
+                        {
+                            toDelete.Add(staticObject);
+                            map.Remove(staticObject);
+                        }
+
+                        toDelete.Add(suriken);
+                        suriken.IsWorking = false;
+                    }
                 }
         }
 
