@@ -9,7 +9,6 @@ namespace LastNinja
         public (int Dx, int Dy) Size { get; }
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
-        public Direction Direction { get; set; }
         public int PrevX { get; private set; }
         public int PrevY { get; private set; }
 
@@ -21,7 +20,6 @@ namespace LastNinja
             this.map = map;
             this.player = player;
             (X, Y) = (player.X, player.Y);
-            Direction = player.Direction;
             Size = (10, 10);
         }
 
@@ -31,13 +29,13 @@ namespace LastNinja
             var (x, y) = (X, Y);
             const int speed = 20;
 
-            if (Direction == Direction.Down)
+            if (player.Direction == Direction.Down)
                 y += speed;
-            if (Direction == Direction.Up)
+            if (player.Direction == Direction.Up)
                 y -= speed;
-            if (Direction == Direction.Right)
+            if (player.Direction == Direction.Right)
                 x += speed;
-            if (Direction == Direction.Left)
+            if (player.Direction == Direction.Left)
                 x -= speed;
 
             if (map.InBounds(new Suriken(map, player) {X = x, Y = y}))

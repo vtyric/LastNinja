@@ -9,7 +9,6 @@ namespace LastNinja
         public (int Dx, int Dy) Size { get; set; }
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
-        public Direction Direction { get; private set; }
         public int PrevX { get; private set; }
         public int PrevY { get; private set; }
 
@@ -31,28 +30,16 @@ namespace LastNinja
             var (x, y) = (X, Y);
 
             if (x > player.X)
-            {
                 x -= speed;
-                Direction = Direction.Left;
-            }
 
             if (x < player.X)
-            {
                 x += speed;
-                Direction = Direction.Right;
-            }
 
             if (y > player.Y)
-            {
                 y -= speed;
-                Direction = Direction.Up;
-            }
 
             if (y < player.Y)
-            {
                 y += speed;
-                Direction = Direction.Down;
-            }
 
             if (map.InBounds(new Warrior(player, map) {X = x, Y = y}))
                 (X, Y) = (x, y);
