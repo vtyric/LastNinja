@@ -4,8 +4,9 @@
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public (int Dx, int Dy) Size { get; set; }
+        public (int Dx, int Dy) Size { get; set; } = (30, 30);
         public int Health { get; set; } = 100;
+        public int Damage { get; } = 0;
         public bool IsWorking { get; set; } = true;
         public int Right { get; set; }
         public int Up { get; set; }
@@ -18,7 +19,6 @@
         public Player(Map map)
         {
             this.map = map;
-            Size = (30, 30);
         }
 
         public void Move()

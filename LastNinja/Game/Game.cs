@@ -30,9 +30,9 @@ namespace LastNinja
 
         public void Start()
         {
-            DynamicObjects.Add(new Warrior(player, map));
-            DynamicObjects.Add(new Warrior(player, map));
-            DynamicObjects.Add(new Warrior(player, map));
+            //DynamicObjects.Add(new Warrior(player, map));
+            //DynamicObjects.Add(new Warrior(player, map));
+            //DynamicObjects.Add(new Warrior(player, map));
             DynamicObjects.Add(player);
 
             MakeStoneWall(650, 950, 400, 400);
@@ -84,6 +84,7 @@ namespace LastNinja
         private void CheckDynamicObjectsInteraction()
         {
             foreach (var dynamicObject in DynamicObjects)
+            {
                 if (dynamicObject is Warrior warrior)
                 {
                     if (player.IsCollided(warrior) && warrior.IsWorking)
@@ -95,39 +96,35 @@ namespace LastNinja
                     }
 
                     foreach (var suriken in DynamicObjects.Where(x => x is Suriken))
-                        if (suriken.IsCollided(warrior) && warrior.IsWorking)
+                        if (suriken.IsCollided(warrior) && warrior.IsWorking && suriken.IsWorking)
                         {
                             toDelete.Add(suriken);
                             toDelete.Add(warrior);
                             score++;
                             warriorsCount--;
+                            suriken.IsWorking = false;
                         }
-
-                    foreach (var staticObject in StaticObjects.Where(staticObject => warrior.IsCollided(staticObject)))
-                    {
-                        staticObject.Health -= 2;
-                        if (staticObject.Health < 0)
-                        {
-                            toDelete.Add(staticObject);
-                            map.Remove(staticObject);
-                        }
-                    }
                 }
-                else if (dynamicObject is Suriken suriken)
+
+                foreach (var staticObject in StaticObjects.Where(staticObject
+                    => dynamicObject.IsCollided(staticObject) && dynamicObject.IsWorking))
                 {
-                    foreach (var staticObject in StaticObjects.Where(staticObject => staticObject.IsCollided(suriken)))
-                    {
-                        staticObject.Health -= 25;
-                        if (staticObject.Health < 0)
-                        {
-                            toDelete.Add(staticObject);
-                            map.Remove(staticObject);
-                        }
+                    staticObject.Health -= dynamicObject.Damage;
 
-                        toDelete.Add(suriken);
+                    if (staticObject.Health < 0)
+                    {
+                        map.Remove(staticObject);
+                        toDelete.Add(staticObject);
+                    }
+
+                    if (dynamicObject is Suriken suriken)
+                    {
                         suriken.IsWorking = false;
+                        toDelete.Add(suriken);
                     }
                 }
+            }
+
         }
 
         private void DeleteDisabledObjects()
