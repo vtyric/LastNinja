@@ -44,7 +44,11 @@ namespace LastNinja
         {
             for (var x = startX; x <= endX; x += 75)
             for (var y = endY; y >= startY; y -= 75)
-                StaticObjects.Add(new Stone {X = x, Y = y});
+            {
+                var stone = new Stone {X = x, Y = y};
+                StaticObjects.Add(stone);
+                map.Add(stone);
+            }
         }
 
         public void GameTick()
@@ -65,21 +69,7 @@ namespace LastNinja
         private void MoveDynamicObjects()
         {
             foreach (var dynamicObject in DynamicObjects)
-                if (!StaticObjects.Any(x => x.IsCollided(dynamicObject)))
-                {
-                    dynamicObject.Move();
-
-                    if (!dynamicObject.IsWorking)
-                    {
-                        toDelete.Add(dynamicObject);
-                        dynamicObject.IsWorking = false;
-                    }
-                }
-                else
-                {
-                    dynamicObject.X = dynamicObject.PrevX;
-                    dynamicObject.Y = dynamicObject.PrevY;
-                }
+                dynamicObject.Move();
         }
 
         private void CheckObjectsInteraction()

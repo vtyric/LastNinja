@@ -12,8 +12,6 @@
         public int Down { get; set; }
         public int Left { get; set; }
         public Direction Direction { get; set; } = Direction.Right;
-        public int PrevX { get; private set; }
-        public int PrevY { get; private set; }
 
         private readonly Map map;
 
@@ -25,7 +23,6 @@
 
         public void Move()
         {
-            (PrevX, PrevY) = (X, Y);
             var (x, y) = (X, Y);
             x += Right + Left;
             y += Up + Down;
@@ -33,7 +30,7 @@
             var newPlayer = new Player(map)
                 {Direction = Direction, Size = (Size.Dx, Size.Dy), X = x, Y = y};
 
-            if (map.InBounds(newPlayer))
+            if (map.InBounds(newPlayer) && !map.IsSmthAtThisPoint(x, y))
                 (X, Y) = (x, y);
         }
     }

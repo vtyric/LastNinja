@@ -10,7 +10,7 @@
 
         public Stone()
         {
-            Size = (50, 40);
+            Size = (50, 80);
         }
     }
 }

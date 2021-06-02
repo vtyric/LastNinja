@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using System.Runtime.InteropServices;
-using LastNinja;
 using FluentAssertions;
 using NUnit.Framework;
 

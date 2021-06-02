@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LastNinja
 {
@@ -9,8 +13,6 @@ namespace LastNinja
         public (int Dx, int Dy) Size { get; set; }
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
-        public int PrevX { get; private set; }
-        public int PrevY { get; private set; }
 
         private readonly Player player;
         private readonly Map map;
@@ -27,7 +29,6 @@ namespace LastNinja
         public void Move()
         {
             const int speed = 5;
-            (PrevX, PrevY) = (X, Y);
             var (x, y) = (X, Y);
 
             if (x > player.X)
@@ -42,7 +43,7 @@ namespace LastNinja
             if (y < player.Y)
                 y += speed;
 
-            if (map.InBounds(new Warrior(player, map) {X = x, Y = y}))
+            if (map.InBounds(new Warrior(player, map) {X = x, Y = y}) && !map.IsSmthAtThisPoint(x,y))
                 (X, Y) = (x, y);
         }
     }
