@@ -41,19 +41,6 @@ namespace LastNinja
             MakeStoneWall(100, 100, 250, 500);
         }
 
-        private void MakeStoneWall(int startX, int endX, int startY, int endY)
-        {
-            const int delta = 75;
-
-            for (var x = startX; x <= endX; x += delta)
-            for (var y = endY; y >= startY; y -= delta)
-            {
-                var stone = new Stone {X = x, Y = y};
-                StaticObjects.Add(stone);
-                map.Add(stone);
-            }
-        }
-
         public void GameTick()
         {
             MoveDynamicObjects();
@@ -65,6 +52,19 @@ namespace LastNinja
             CheckWarriorsCount();
 
             SetPlayerState();
+        }
+
+        private void MakeStoneWall(int startX, int endX, int startY, int endY)
+        {
+            const int delta = 75;
+
+            for (var x = startX; x <= endX; x += delta)
+            for (var y = endY; y >= startY; y -= delta)
+            {
+                var stone = new Stone {X = x, Y = y};
+                StaticObjects.Add(stone);
+                map.Add(stone);
+            }
         }
 
         private void SetPlayerState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
