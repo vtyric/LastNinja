@@ -30,13 +30,18 @@ namespace LastNinja
         public void Move()
         {
             const int speed = 5;
-            var (dx, dy) = (Math.Sign(player.X - X) * speed, Math.Sign(player.Y - Y) * speed);
 
-            if (map.InBounds(dx + X, Y, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X + dx, Y))
-                X += dx;
+            if (X > player.X && map.InBounds(X - speed, Y, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X - speed, Y))
+                X -= speed;
 
-            if (map.InBounds(X, Y + dy, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X, Y + dy))
-                Y += dy;
+            if (X < player.X && map.InBounds(X + speed, Y, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X + speed, Y))
+                X += speed;
+
+            if (Y > player.Y && map.InBounds(X, Y - speed, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X, Y - speed))
+                Y -= speed;
+
+            if (Y < player.Y && map.InBounds(X, Y + speed, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X, Y + speed))
+                Y += speed;
         }
     }
 }
