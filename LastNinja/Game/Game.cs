@@ -63,10 +63,7 @@ namespace LastNinja
             SetPlayerState();
         }
 
-        private void SetPlayerState()
-        {
-            PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
-        }
+        private void SetPlayerState() => PLayerStateChanged?.Invoke((player.X, player.Y, player.Health), score);
 
         private void MoveDynamicObjects()
         {

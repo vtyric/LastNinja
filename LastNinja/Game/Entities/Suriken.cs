@@ -1,23 +1,19 @@
-﻿using System;
-
-namespace LastNinja
+﻿namespace LastNinja
 {
-    public class Suriken:IDynamicObject
+    public class Suriken : IDynamicObject
     {
         public int X { get; set; }
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; }
         public int Health { get; set; }
         public bool IsWorking { get; set; } = true;
-      
+
         private readonly Map map;
-        private readonly Player player;
         private readonly Direction direction;
 
         public Suriken(Map map, Player player)
         {
             this.map = map;
-            this.player = player;
             (X, Y) = (player.X, player.Y);
             Size = (10, 10);
             direction = player.Direction;
@@ -37,7 +33,7 @@ namespace LastNinja
             if (direction == Direction.Left)
                 x -= speed;
 
-            if (map.InBounds(x,y,Size.Dx,Size.Dy))
+            if (map.InBounds(x, y, Size.Dx, Size.Dy))
                 (X, Y) = (x, y);
             else
                 IsWorking = false;

@@ -18,8 +18,7 @@ namespace LastNinja.Tests
         [TestCase(100, 100, 90, 90, 20, 0, -10, 0, 90, 90)]
         [TestCase(100, 100, 90, 90, 0, -20, 0, 20, 90, 90)]
         public void MoveTestWithoutAnyObjects(int mapWidth, int mapHeight, int startX, int startY, int moveRight,
-            int moveLeft,
-            int moveUp, int moveDown, int shouldX, int shouldY)
+            int moveLeft, int moveUp, int moveDown, int shouldX, int shouldY)
         {
             var map = new Map(mapWidth, mapHeight);
             var player = new Player(map)
