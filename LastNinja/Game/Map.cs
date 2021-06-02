@@ -1,10 +1,8 @@
-﻿using System.Runtime.InteropServices;
-
-namespace LastNinja
+﻿namespace LastNinja
 {
     public class Map
     {
-        public IGameObject[,] Field { get;  }
+        public IGameObject[,] Field { get; }
 
         public Map(int mapWidth, int mapHeight)
         {
