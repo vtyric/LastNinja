@@ -21,6 +21,7 @@ namespace LastNinja
             Size = (30, 30);
             this.player = player;
             this.map = map;
+            map.Add(this);
         }
 
         public void Move()

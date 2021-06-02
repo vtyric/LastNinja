@@ -14,6 +14,7 @@ namespace LastNinja
 
         private readonly Map map;
         private readonly Player player;
+        private readonly Direction direction;
 
         public Suriken(Map map, Player player)
         {
@@ -21,6 +22,7 @@ namespace LastNinja
             this.player = player;
             (X, Y) = (player.X, player.Y);
             Size = (10, 10);
+            direction = player.Direction;
         }
 
         public void Move()
@@ -29,13 +31,13 @@ namespace LastNinja
             var (x, y) = (X, Y);
             const int speed = 20;
 
-            if (player.Direction == Direction.Down)
+            if (direction == Direction.Down)
                 y += speed;
-            if (player.Direction == Direction.Up)
+            if (direction == Direction.Up)
                 y -= speed;
-            if (player.Direction == Direction.Right)
+            if (direction == Direction.Right)
                 x += speed;
-            if (player.Direction == Direction.Left)
+            if (direction == Direction.Left)
                 x -= speed;
 
             if (map.InBounds(new Suriken(map, player) {X = x, Y = y}))
