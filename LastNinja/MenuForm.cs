@@ -17,16 +17,20 @@ namespace LastNinja
                 Size = new Size(ClientSize.Width, height),
                 Image = Resource1.start_game
             };
+            var game = new GameForm();
 
             var controlLabel = new Label
             {
                 Text =
                     @"управление:
 передвижение - стрелочками
-кикинуть сюрикен - space",
+кикинуть сюрикен - space
+
+
+Максимальный счет: 0",
                 Font = new Font("Arial", 20),
                 Location = new Point(ClientSize.Width/3, 20),
-                Size = new Size(400, 100)
+                Size = new Size(400, 200)
             };
 
             SizeChanged += (sender, args) =>
@@ -41,11 +45,16 @@ namespace LastNinja
 
             startGameLabel.Click += (sender, args) =>
             {
-                var game = new GameForm();
                 Hide();
                 game.FormClosed += (o, eventArgs) =>
                 {
                     Show();
+                    controlLabel.Text = $@"управление:
+передвижение - стрелочками
+кикинуть сюрикен - space
+
+
+Максимальный счет: {game.MaxScore}";
                     startGameLabel.Image = Resource1.restart;
                 };
                 game.Show();

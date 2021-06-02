@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,6 +11,8 @@ namespace LastNinja
         private const int MapWidth = 1100;
         private const int MapHeight = 700;
         private const int UpLabelHeight = 20;
+
+        public int MaxScore { get; private set; }
 
         public GameForm()
         {
@@ -35,9 +36,9 @@ namespace LastNinja
             var pen = new Pen(Color.Black, 20);
             args.Graphics.DrawRectangle(pen, 40, 60 + UpLabelHeight, MapWidth, MapHeight);
 
-            foreach (var gameObject in game.StaticObjects)
-                if (gameObject is Stone)
-                    args.Graphics.DrawImage(Resource1.stone1, gameObject.X, gameObject.Y + UpLabelHeight);
+            foreach (var gameObject in game.StaticObjects.OfType<Stone>())
+                args.Graphics.DrawImage
+                    (Resource1.stone1, ((IGameObject) gameObject).X, ((IGameObject) gameObject).Y + UpLabelHeight);
 
             foreach (var gameObject in game.DynamicObjects)
             {
@@ -47,7 +48,7 @@ namespace LastNinja
                 if (gameObject is Warrior)
                     args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y + UpLabelHeight);
 
-                if(gameObject is Suriken)
+                if (gameObject is Suriken)
                     args.Graphics.DrawImage(Resource1.suriken, gameObject.X, gameObject.Y + UpLabelHeight);
             }
         }
@@ -82,6 +83,7 @@ namespace LastNinja
             {
                 if (endGame)
                 {
+                    MaxScore = MaxScore <= score ? score : MaxScore;
                     Close();
                     return;
                 }
