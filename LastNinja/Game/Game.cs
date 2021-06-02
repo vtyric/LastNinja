@@ -13,7 +13,7 @@ namespace LastNinja
         public event Action<(int X, int Y, int Health), int> PLayerStateChanged;
 
         private readonly Map map;
-        private readonly HashSet<IDynamicObject> toDelete;
+        private readonly HashSet<IGameObject> toDelete;
         private int warriorsCount = 3;
         private readonly Player player;
         private int score;
@@ -25,12 +25,12 @@ namespace LastNinja
             DynamicObjects = new List<IDynamicObject>();
             StaticObjects = new List<IGameObject>();
             PlayerKeyController = new PlayerKeyController(player, map, DynamicObjects);
-            toDelete = new HashSet<IDynamicObject>();
+            toDelete = new HashSet<IGameObject>();
         }
 
         public void Start()
         {
-            DynamicObjects.Add(new Warrior(player,map));
+            DynamicObjects.Add(new Warrior(player, map));
             DynamicObjects.Add(new Warrior(player, map));
             DynamicObjects.Add(new Warrior(player, map));
             DynamicObjects.Add(player);
@@ -100,10 +100,21 @@ namespace LastNinja
                             score++;
                             warriorsCount--;
                         }
-                        else if (StaticObjects.Any(x => x.IsCollided(suriken)))
+                        else
                         {
-                            toDelete.Add(suriken);
-                            suriken.IsWorking = false;
+                            foreach (var staticObject in StaticObjects.Where(staticObject
+                                => staticObject.IsCollided(suriken)))
+                            {
+                                staticObject.Health -= 25;
+                                if (staticObject.Health < 0)
+                                {
+                                    toDelete.Add(staticObject);
+                                    map.Remove(staticObject);
+                                }
+
+                                toDelete.Add(suriken);
+                                suriken.IsWorking = false;
+                            }
                         }
                 }
         }
@@ -112,7 +123,10 @@ namespace LastNinja
         {
             if (toDelete != null)
                 foreach (var gameObject in toDelete)
-                    DynamicObjects.Remove(gameObject);
+                    if (gameObject is IDynamicObject dynamicObject)
+                        DynamicObjects.Remove(dynamicObject);
+                    else
+                        StaticObjects.Remove(gameObject);
 
             toDelete?.Clear();
         }

@@ -5,7 +5,7 @@
         public int X { get; set; }
         public int Y { get; set; }
         public (int Dx, int Dy) Size { get; set; } = (50, 60);
-        public int Health { get; set; }
+        public int Health { get; set; } = 100;
         public bool IsWorking { get; set; } = true;
     }
 }
