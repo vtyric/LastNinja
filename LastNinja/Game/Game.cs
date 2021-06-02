@@ -83,48 +83,56 @@ namespace LastNinja
             }
         }
 
+        private void CheckWarriorsInteraction(Warrior warrior)
+        {
+            if (player.IsCollided(warrior) && warrior.IsWorking)
+            {
+                toDelete.Add(warrior);
+                warrior.IsWorking = false;
+                player.Health -= warrior.Damage;
+                warriorsCount--;
+            }
+
+            foreach (var suriken in DynamicObjects.Where(x
+                => x is Suriken suriken && suriken.IsCollided(warrior) && warrior.IsWorking && suriken.IsWorking))
+            {
+                toDelete.Add(suriken);
+                toDelete.Add(warrior);
+                score++;
+                warriorsCount--;
+                suriken.IsWorking = false;
+            }
+        }
+
+        private void DamageStaticObjects(IDynamicObject dynamicObject)
+        {
+            foreach (var staticObject in StaticObjects.Where(staticObject
+                => dynamicObject.IsCollided(staticObject) && dynamicObject.IsWorking))
+            {
+                staticObject.Health -= dynamicObject.StaticObjectsDamage;
+
+                if (staticObject.Health < 0)
+                {
+                    map.Remove(staticObject);
+                    toDelete.Add(staticObject);
+                }
+
+                if (dynamicObject is Suriken suriken)
+                {
+                    suriken.IsWorking = false;
+                    toDelete.Add(suriken);
+                }
+            }
+        }
+
         private void CheckDynamicObjectsInteraction()
         {
             foreach (var dynamicObject in DynamicObjects)
             {
                 if (dynamicObject is Warrior warrior)
-                {
-                    if (player.IsCollided(warrior) && warrior.IsWorking)
-                    {
-                        toDelete.Add(warrior);
-                        warrior.IsWorking = false;
-                        player.Health -= warrior.Damage;
-                        warriorsCount--;
-                    }
+                    CheckWarriorsInteraction(warrior);
 
-                    foreach (var suriken in DynamicObjects.Where(x => x is Suriken))
-                        if (suriken.IsCollided(warrior) && warrior.IsWorking && suriken.IsWorking)
-                        {
-                            toDelete.Add(suriken);
-                            toDelete.Add(warrior);
-                            score++;
-                            warriorsCount--;
-                            suriken.IsWorking = false;
-                        }
-                }
-
-                foreach (var staticObject in StaticObjects.Where(staticObject
-                    => dynamicObject.IsCollided(staticObject) && dynamicObject.IsWorking))
-                {
-                    staticObject.Health -= dynamicObject.StaticObjectsDamage;
-
-                    if (staticObject.Health < 0)
-                    {
-                        map.Remove(staticObject);
-                        toDelete.Add(staticObject);
-                    }
-
-                    if (dynamicObject is Suriken suriken)
-                    {
-                        suriken.IsWorking = false;
-                        toDelete.Add(suriken);
-                    }
-                }
+                DamageStaticObjects(dynamicObject);
             }
         }
 
