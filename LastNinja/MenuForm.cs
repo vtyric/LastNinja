@@ -19,7 +19,7 @@ namespace LastNinja
                 Image = Resource1.start_game
             };
 
-            var controlLabel = new Label
+            var labelWithText = new Label
             {
                 Text =
                     @"управление:
@@ -36,11 +36,11 @@ namespace LastNinja
             SizeChanged += (sender, args) =>
             {
                 startGameLabel.Location = new Point(ClientSize.Width / 16 - 80, ClientSize.Height / 2 - 100);
-                controlLabel.Location = new Point(ClientSize.Width / 3, 20);
+                labelWithText.Location = new Point(ClientSize.Width / 3, 20);
                 startGameLabel.Size = new Size(ClientSize.Width, height);
             };
 
-            Controls.Add(controlLabel);
+            Controls.Add(labelWithText);
             Controls.Add(startGameLabel);
 
             startGameLabel.Click += (sender, args) =>
@@ -51,7 +51,7 @@ namespace LastNinja
                 {
                     Show();
                     maxScore = game.Score > maxScore ? game.Score : maxScore;
-                    controlLabel.Text = $@"управление:
+                    labelWithText.Text = $@"управление:
 передвижение - стрелочками
 кикинуть сюрикен - space
 
