@@ -22,7 +22,7 @@ namespace LastNinja
             Y = rnd.Next(200, 300) + player.Y;
             (X, Y) = map.InBounds(X, Y, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(X, Y)
                 ? (X, Y)
-                : (map.Width / rnd.Next(2, 5), map.Height / rnd.Next(2, 5));
+                : (map.Width / 2, map.Height / 2);
             this.player = player;
             this.map = map;
         }
