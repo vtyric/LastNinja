@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace LastNinja
@@ -11,6 +12,9 @@ namespace LastNinja
         private const int MapWidth = 1100;
         private const int MapHeight = 700;
         private const int UpLabelHeight = 20;
+        private Label controlLabel;
+        private ProgressBar healthLabel;
+        private Label scoreLabel;
 
         public int Score { get; private set; }
 
@@ -29,6 +33,23 @@ namespace LastNinja
             timer.Tick += (sender, args) => game.GameTick();
             Paint += DrawDynamicObjects;
             MakeLabels();
+
+            game.PLayerStateChanged += UpdateLabels;
+        }
+
+        private void UpdateLabels((int X, int Y, int Health) player, int score, bool endGame)
+        {
+            if (endGame)
+            {
+                Score = score;
+                Close();
+                return;
+            }
+
+            scoreLabel.Text = $@"Score: {score}";
+            healthLabel.Value = player.Health;
+            healthLabel.Location = new Point(player.X, player.Y - 20 + UpLabelHeight);
+            Invalidate();
         }
 
         private void DrawDynamicObjects(object sender, PaintEventArgs args)
@@ -42,20 +63,29 @@ namespace LastNinja
 
             foreach (var gameObject in game.DynamicObjects)
             {
-                if (gameObject is Player)
-                    args.Graphics.DrawImage(Resource1.player, gameObject.X, gameObject.Y + UpLabelHeight);
+                if (gameObject is Player player)
+                {
+                    if (player.Direction == Direction.Right)
+                        args.Graphics.DrawImage(Resource1.player_right, player.X, player.Y + UpLabelHeight);
+                    if (player.Direction == Direction.Left)
+                        args.Graphics.DrawImage(Resource1.player_left, player.X, player.Y + UpLabelHeight);
+                    if (player.Direction == Direction.Up)
+                        args.Graphics.DrawImage(Resource1.player_back, player.X, player.Y + UpLabelHeight);
+                    if (player.Direction == Direction.Down)
+                        args.Graphics.DrawImage(Resource1.player_right, player.X, player.Y + UpLabelHeight);
+                }
 
-                if (gameObject is Warrior)
-                    args.Graphics.DrawImage(Resource1.warrior, gameObject.X, gameObject.Y + UpLabelHeight);
+                if (gameObject is Warrior warrior)
+                    args.Graphics.DrawImage(Resource1.warrior, warrior.X, warrior.Y + UpLabelHeight);
 
-                if (gameObject is Suriken)
-                    args.Graphics.DrawImage(Resource1.suriken, gameObject.X, gameObject.Y + UpLabelHeight);
+                if (gameObject is Suriken suriken)
+                    args.Graphics.DrawImage(Resource1.suriken, suriken.X, suriken.Y + UpLabelHeight);
             }
         }
 
         private void MakeLabels()
         {
-            var controlLabel = new Label
+            controlLabel = new Label
             {
                 Text =
                     @"управление:
@@ -66,9 +96,9 @@ namespace LastNinja
                 Size = new Size(520, 300)
             };
 
-            var healthLabel = new ProgressBar {Size = new Size(70, 5)};
+            healthLabel = new ProgressBar {Size = new Size(70, 5)};
 
-            var scoreLabel = new Label
+            scoreLabel = new Label
             {
                 Location = new Point(MapWidth / 2, 20),
                 Size = new Size(200, 30),
@@ -78,21 +108,6 @@ namespace LastNinja
             Controls.Add(healthLabel);
             Controls.Add(scoreLabel);
             Controls.Add(controlLabel);
-
-            game.PLayerStateChanged += (player, score, endGame) =>
-            {
-                if (endGame)
-                {
-                    Score = score;
-                    Close();
-                    return;
-                }
-
-                scoreLabel.Text = $@"Score: {score}";
-                healthLabel.Value = player.Health;
-                healthLabel.Location = new Point(player.X, player.Y - 20 + UpLabelHeight);
-                Invalidate();
-            };
         }
 
         private void MakeForm()

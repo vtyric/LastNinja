@@ -123,6 +123,11 @@
   <ItemGroup>
     <None Include="Resources\restart.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\player left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player_back.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
