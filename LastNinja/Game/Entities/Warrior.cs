@@ -31,7 +31,7 @@ namespace LastNinja
             if (map.InBounds(x, y, Size.Dx, Size.Dy) && !map.IsSmthAtThisPoint(x, y))
                 return (x, y);
 
-            var next = rnd.Next(1, 4);
+            var next = rnd.Next(1, 3);
 
             switch (next)
             {
